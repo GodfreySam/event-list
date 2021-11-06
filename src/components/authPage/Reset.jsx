@@ -17,7 +17,11 @@ const Reset = () => {
 		};
 
 		try {
-			let res = await axios.post("http://localhost:9000/api/v1/auth/reset", user);
+			let res = await axios.post(
+				// "http://localhost:9000/api/v1/auth/reset",
+				"https://event-list-api.herokuapp.com/api/v1/auth/reset",
+				user,
+			);
 			if (res.data.success) toast.success(res.data.msg);
 			window.location.href = "/effect-reset";
 		} catch (err) {
