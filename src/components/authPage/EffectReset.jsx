@@ -19,7 +19,7 @@ const EffectRest = () => {
 
 		try {
 			let res = await axios.post(
-				"/api/v1/auth/reset-password",
+				"https://event-list-api.herokuapp.com/api/v1/auth/reset-password",
 				user,
 			);
 			if (res.data.success) toast.success(res.data.msg);

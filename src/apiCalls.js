@@ -6,7 +6,7 @@ export const loginCall = async (userCredentials, dispatch) => {
 
 	try {
 		let res = await axios.post(
-			"/api/v1/auth/login",
+			"https://event-list-api.herokuapp.com/api/v1/auth/login",
 			userCredentials,
 		);
 		if (res.data.success) toast.success(res.data.msg);
