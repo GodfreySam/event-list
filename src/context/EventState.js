@@ -18,18 +18,25 @@ export const EventProvider = ({ children }) => {
 			type: "ADD_EVENT",
 			payload: event,
 		});
-	}
+	};
 
 	function deleteEvent(id) {
 		dispatch({
 			type: "DELETE_EVENT",
 			payload: id,
 		});
+	};
+
+	function editEvent(id) {
+		dispatch({
+			type: "EDIT_EVENT",
+			payload: id,
+		});
 	}
 
 	return (
 		<EventContext.Provider
-			value={{ events: state.events, addEvent, deleteEvent }}
+			value={{ events: state.events, addEvent, deleteEvent, editEvent }}
 		>
 			{children}
 		</EventContext.Provider>

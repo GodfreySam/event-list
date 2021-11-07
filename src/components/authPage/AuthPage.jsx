@@ -40,14 +40,13 @@ const Auth = () => {
 			password,
 		};
 
-		console.log(newUser)
 		try {
 			let res = await axios.post(
-				"https://event-list-api.herokuapp.com/api/v1/auth/register",
+				"http://localhost:9000/api/v1/auth/register",
 				newUser,
 			);
 			if (res.data.success) toast.success(res.data.msg);
-			setAuthType(false);
+			setAuthType(true);
 		} catch (err) {
 			if (!err.response.data.success) return toast.error(err.response.data.msg);
 		}

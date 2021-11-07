@@ -11,6 +11,10 @@ export default (state, action) => {
             ...state,
             events: state.events.filter(event => event.id !== action.payload)
          }
+      case 'EDIT_EVENT':
+         return {
+            events: state.events.map((event) => event.id === action.payload ? action.payload : event)
+         }
       default: return state;
    }
 }

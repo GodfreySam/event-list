@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import $ from "jquery";
 import { FaBook, FaSignOutAlt, FaTrashAlt } from "react-icons/fa";
 import "./navbar.css";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
+	const { user } = useContext(AuthContext);
 	const [sidebar, setSidebar] = useState(false);
 
 	$("#profileImage").click(function (e) {
@@ -59,6 +61,7 @@ const Navbar = () => {
 							capture
 						/>
 					</li>
+					{user ? (<li style={{ listStyle: "none" }}>{user.user.fullname} </li>): ""}
 				</ul>
 				<ul className="nav__menu__items" onClick={showSidebar}>
 					<li className="nav__text">
