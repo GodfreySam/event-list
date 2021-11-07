@@ -42,7 +42,7 @@ const Auth = () => {
 
 		try {
 			let res = await axios.post(
-				"http://localhost:9000/api/v1/auth/register",
+				"https://event-list-api.herokuapp.com/api/v1/auth/register",
 				newUser,
 			);
 			if (res.data.success) toast.success(res.data.msg);
