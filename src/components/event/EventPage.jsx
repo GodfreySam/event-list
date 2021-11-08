@@ -58,7 +58,7 @@ const EventPage = () => {
 
 	useEffect(() => {
 		getTodos();
-	}, []);
+	}, [allEvent]);
 
 	const deleteItem = async (id) => {
 		try {
