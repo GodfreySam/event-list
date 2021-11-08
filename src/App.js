@@ -1,14 +1,12 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import Header from "./components/header/Header";
 import EventPage from "./components/event/EventPage";
 import { Toaster } from "react-hot-toast";
 import AuthPage from "./components/authPage/AuthPage";
-import Reset from "./components/authPage/Reset";
-import EffectReset from "./components/authPage/EffectReset";
-import { EventProvider } from "./context/EventState";
-
+// import Reset from "./components/authPage/Reset";
+// import EffectReset from "./components/authPage/EffectReset";
 
 const App = () => {
 	const { user } = useContext(AuthContext);
@@ -17,19 +15,17 @@ const App = () => {
 			<Header />
 
 			{user ? (
-				<EventProvider>
 					<EventPage />
-				</EventProvider>
 			) : (
 				<AuthPage />
 			)}
 
-			<Router>
+			{/* <Router>
 				<Routes>
 					<Route path="/reset-password" exact component={Reset}></Route>
 					<Route path="/effect-reset" exact component={EffectReset}></Route>
 				</Routes>
-			</Router>
+			</Router> */}
 
 			<Toaster
 				position="top-right"

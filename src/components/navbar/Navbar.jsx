@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import $ from "jquery";
 import { FaBook, FaSignOutAlt, FaTrashAlt } from "react-icons/fa";
 import "./navbar.css";
 import { AuthContext } from "../../context/AuthContext";
@@ -7,23 +6,6 @@ import { AuthContext } from "../../context/AuthContext";
 const Navbar = () => {
 	const { user } = useContext(AuthContext);
 	const [sidebar, setSidebar] = useState(false);
-
-	$("#profileImage").click(function (e) {
-		$("#imageUpload").click();
-	});
-
-	function fasterPreview(uploader) {
-		if (uploader.files && uploader.files[0]) {
-			$("#profileImage").attr(
-				"src",
-				window.URL.createObjectURL(uploader.files[0]),
-			);
-		}
-	}
-
-	$("#imageUpload").change(function () {
-		fasterPreview(this);
-	});
 
 	const showSidebar = () => setSidebar(!sidebar);
 
