@@ -31,7 +31,7 @@ const App = () => {
 				position="top-right"
 				toastOptions={{
 					className: "",
-					duration: 10000,
+					duration: 7000,
 					style: {
 						color: "#fff",
 					},

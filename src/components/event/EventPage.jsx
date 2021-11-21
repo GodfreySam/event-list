@@ -23,7 +23,9 @@ const EventPage = () => {
 			event: todo,
 		};
 
-	/*	
+		if (newTodo.event === "") return toast.error("Event entry can not be empty");
+
+		/*	
 		https://event-list-api.herokuapp.com/ 
 		http://localhost:9000/
 	*/
@@ -35,11 +37,10 @@ const EventPage = () => {
 				},
 			});
 			if (res.data.success) toast.success(res.data.msg);
-			// window.location.reload();
+			setAllEvent((prevTodo) => [res.data.newTodo, ...prevTodo]);
 		} catch (err) {
 			if (!err.response.data.success) return toast.error(err.response.data.msg);
 		}
-
 		setTodo("");
 	};
 
@@ -55,7 +56,7 @@ const EventPage = () => {
 
 	useEffect(() => {
 		getTodos();
-	}, [allEvent]);
+	}, []);
 
 	const deleteItem = async (id) => {
 		try {
@@ -68,8 +69,8 @@ const EventPage = () => {
 					},
 				},
 			);
-			console.log(res);
 			if (res.data.success) toast.success(res.data.msg);
+			setAllEvent(allEvent.filter((event) => event._id !== id))
 		} catch (err) {
 			if (!err.response.data.success) return toast.error(err.response.data.msg);
 		}
@@ -97,7 +98,7 @@ const EventPage = () => {
 					},
 				},
 			);
-			if(res.data.success) toast.success(res.data.msg);
+			if (res.data.success) toast.success(res.data.msg);
 		} catch (err) {
 			if (!err.response.data.success) return toast.error(err.response.data.msg);
 		}
@@ -121,7 +122,7 @@ const EventPage = () => {
 								type="text"
 								name="todo"
 								value={todo}
-								placeholder="Enter a todo event..."
+								placeholder="Type a todo event..."
 								onChange={onChangeHandler}
 							/>
 							<button type="submit">Add</button>
@@ -131,6 +132,7 @@ const EventPage = () => {
 							<p className="event__header">Update Item</p>
 							<input
 								type="text"
+								Z
 								name="todo"
 								value={updatedItem.event}
 								placeholder="Update todo event..."
@@ -142,7 +144,11 @@ const EventPage = () => {
 				</div>
 				<div className="event__list">
 					<ul className="list__item">
-						<p className="event__header">Item List</p>
+						{allEvent.length === 0 ? (
+							<p className="event__header">No todo in Event List</p>
+						) : (
+							<p className="event__header">Item List</p>
+						)}
 						{allEvent.map((item) => (
 							<li className="item" key={item._id}>
 								<div className="item__text">{item.event}</div>
@@ -151,13 +157,13 @@ const EventPage = () => {
 										className="item__button__icon"
 										onClick={() => openUpdate(item._id)}
 									>
-										<FaPencilAlt className="button__icon" />
+										<FaPencilAlt className="button__icon pencil-icon" />
 									</span>
 									<span
 										className="item__button__icon"
 										onClick={() => deleteItem(item._id)}
 									>
-										<FaTrashAlt className="button__icon" />
+										<FaTrashAlt className="button__icon delete-icon" />
 									</span>
 								</div>
 							</li>
