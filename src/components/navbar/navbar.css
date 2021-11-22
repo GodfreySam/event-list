@@ -141,6 +141,9 @@ hr {
 
 .uploader-container {
  position: relative;
+ background-image: url('../../generic-avatar.jpg');
+ background-position: center;
+ background-repeat: no-repeat;
 }
 
 .image-item {

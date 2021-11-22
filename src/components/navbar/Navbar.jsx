@@ -6,7 +6,6 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { MdOutlinePermMedia } from "react-icons/md";
-import Avatar from "../../generic-avatar.jpg";
 
 import Cropper from "react-easy-crop";
 import Slider from "@material-ui/core/Slider";
@@ -190,7 +189,7 @@ const Navbar = () => {
 					) : (
 						<div className="image__view uploader-container">
 							<img
-								src={userAvatar ? userAvatar.largeAvi : Avatar}
+								src={userAvatar ? userAvatar.largeAvi : ''}
 								alt="user image"
 								className="user__avatar image-item"
 							/>
