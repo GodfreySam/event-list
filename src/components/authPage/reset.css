@@ -34,10 +34,10 @@
 .heading {
 	display: flex;
 	flex-direction: column;
-	justify-content: start;
+	justify-content: flex-start;
 	justify-items: start;
 	margin-top: 10px;
-	align-items: start;
+	align-items: flex-start;
 }
 
 .heading h1 {
