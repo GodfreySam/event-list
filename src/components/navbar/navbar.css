@@ -154,7 +154,26 @@ hr {
 	opacity: 0.0001;
 }
 
-.controls button {
+.upload__buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.upload__cancel-btn {
+	color: rgb(39, 37, 37);
+	background: red;
+	border: none;
+	border-radius: 5px;
+	font-size: 15px;
+	padding: 5px 10px;
+	margin-top: -15px;
+	cursor: pointer;
+}
+
+.upload__proceed-btn {
 	color: rgb(39, 37, 37);
 	background: orange;
 	border: none;
@@ -162,15 +181,22 @@ hr {
 	font-size: 15px;
 	padding: 5px 10px;
 	margin-top: -15px;
-	margin-left: 80px;
 	cursor: pointer;
 }
 
-.controls button:hover {
+.upload__cancel-btn:hover {
+	color: whitesmoke;
+}
+
+.upload__cancel-btn:active {
+	transform: translateY(7px);
+}
+
+.upload__proceed-btn:hover {
 	color: rgb(192, 10, 3);
 }
 
-.controls button:active {
+.upload__proceed-btn:active {
 	transform: translateY(7px);
 }
 
@@ -184,5 +210,5 @@ span.MuiSlider-rail {
 }
 
 span.MuiSlider-thumb {
-	color: red;
+	color: cadetblue;
 }

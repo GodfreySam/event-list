@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import "./auth.css";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -46,7 +47,7 @@ const Auth = () => {
 		http://localhost:9000/
 	*/
 			let res = await axios.post(
-				"http://localhost:9000/api/v1/auth/register",
+				"https://event-list-api.herokuapp.com/api/v1/auth/register",
 				newUser,
 			);
 			if (res.data.success) toast.success(res.data.msg);
@@ -91,12 +92,12 @@ const Auth = () => {
 								onChange={(e) => setUserPassword(e.target.value)}
 							/>
 							<button type="submit">Sign In</button>
-							<p onClick={()=> (window.location.href = "/reset")}>
+							<p onClick={() => (window.location.href = "/reset-password")}>
 								Forgot or Reset password ?
-								<a href="/reset" className="">
+								<Link to="/reset-password" className="">
 									{" "}
 									Reset
-								</a>
+								</Link>
 							</p>
 						</form>
 					</>

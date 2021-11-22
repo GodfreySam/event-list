@@ -29,8 +29,8 @@
 .auth__form form {
    display: flex;
    flex-direction: column;
-   max-width: 300px;
-   width: 300px;
+   max-width: 350px;
+   width: 350px;
 }
 
 .auth__form form input {
@@ -41,10 +41,16 @@
 }
 
 .auth__form form button {
+   font-weight: 700;
+   font-size: 18px;
     padding: 10px 20px;
    margin: 10px auto 0;
    background: rgb(67, 67, 253);
    color: white;
    border: none;
+}
+
+.auth__form form p {
+   text-align: center;
 }
 

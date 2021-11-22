@@ -12,6 +12,36 @@ import Cropper from "react-easy-crop";
 import Slider from "@material-ui/core/Slider";
 import { getCroppedImg } from "../../cropImage";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Preloader from "../preloader/Preloader";
+
+function rand() {
+	return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+	const top = 50 + rand();
+	const left = 50 + rand();
+
+	return {
+		top: `${top}%`,
+		left: `${left}%`,
+		transform: `translate(-${top}%, -${left}%)`,
+	};
+}
+
+const useStyles = makeStyles((theme) => ({
+	paper: {
+		position: "absolute",
+		width: 400,
+		// backgroundColor: theme.palette.background.paper,
+		// border: "2px solid #000",
+		// boxShadow: theme.shadows[5],
+		padding: theme.spacing(2, 4, 3),
+	},
+}));
+
 const Navbar = () => {
 	const { user } = useContext(AuthContext);
 	const [sidebar, setSidebar] = useState(false);
@@ -35,8 +65,22 @@ const Navbar = () => {
 		window.location.href = "/";
 	};
 
+	const classes = useStyles();
+	// getModalStyle is not a pure function, we roll the style only on the first render
+	const [modalStyle] = React.useState(getModalStyle);
+	const [open, setOpen] = React.useState(false);
+
+	const body = (
+		<div style={modalStyle} className={classes.paper}>
+			<div>
+				<Preloader />
+			</div>
+		</div>
+	);
+
 	const uploadImage = async (e) => {
 		e.preventDefault();
+			setOpen(true);
 
 		try {
 			const data = new FormData();
@@ -46,8 +90,8 @@ const Navbar = () => {
 		https://event-list-api.herokuapp.com/ 
 		http://localhost:9000/
 	*/
-			let postRes = await axios.post(
-				"http://localhost:9000/api/v1/user/update-avatar",
+			let loadImage = await axios.post(
+				"https://event-list-api.herokuapp.com/api/v1/user/update-avatar",
 				data,
 				{
 					headers: {
@@ -56,28 +100,33 @@ const Navbar = () => {
 					},
 				},
 			);
-
-			if (postRes.data.success) return toast.success(postRes.data.msg);
-			setImage(null);
+			if (loadImage.data.success) {
+				setOpen(false);
+				toast.success(loadImage.data.msg);
+				getUserAvatar();
+				return setImage(null);
+			}
 		} catch (err) {
 			if (!err.response.data.success) return toast.error(err.response.data.msg);
 		}
 	};
 
 	const getUserAvatar = async () => {
-		let res = await axios.get("http://localhost:9000/api/v1/user", {
-			headers: {
-				"content-type": "application/json",
-				"access-token": user.token,
+		let res = await axios.get(
+			"https://event-list-api.herokuapp.com/api/v1/user",
+			{
+				headers: {
+					"content-type": "application/json",
+					"access-token": user.token,
+				},
 			},
-		});
+		);
 		setUserAvatar(res.data.userAvatar);
 	};
 
 	useEffect(() => {
-		// getUserAvatar();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userAvatar]);
+		getUserAvatar();
+	}, []);
 
 	return (
 		<>
@@ -93,6 +142,14 @@ const Navbar = () => {
 					</span>
 				</div>
 			</div>
+			<Modal
+				open={open}
+				onClose={() => setOpen(false)}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description"
+			>
+				{body}
+			</Modal>
 			<nav className={sidebar ? "nav__menu active" : "nav__menu"}>
 				<div className="user__profile__image">
 					{image ? (
@@ -117,9 +174,14 @@ const Navbar = () => {
 									onChange={(e, zoom) => setZoom(zoom)}
 									classes={{ root: "slider" }}
 								/>
-								<button onClick={uploadImage}>
-									Update
-								</button>
+								<div className="upload__buttons">
+									<button onClick={() => setImage(null)} className="upload__cancel-btn">
+										Cancel
+									</button>
+									<button onClick={uploadImage} className="upload__proceed-btn">
+										Update
+									</button>
+								</div>
 							</div>
 						</div>
 					) : (

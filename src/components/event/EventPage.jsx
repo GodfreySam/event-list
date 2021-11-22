@@ -30,12 +30,16 @@ const EventPage = () => {
 		http://localhost:9000/
 	*/
 		try {
-			let res = await axios.post("http://localhost:9000/api/v1/todo", newTodo, {
-				headers: {
-					"content-type": "application/json",
-					"access-token": user.token,
+			let res = await axios.post(
+				"https://event-list-api.herokuapp.com/api/v1/todo",
+				newTodo,
+				{
+					headers: {
+						"content-type": "application/json",
+						"access-token": user.token,
+					},
 				},
-			});
+			);
 			if (res.data.success) toast.success(res.data.msg);
 			setAllEvent((prevTodo) => [res.data.newTodo, ...prevTodo]);
 		} catch (err) {
@@ -45,12 +49,15 @@ const EventPage = () => {
 	};
 
 	const getTodos = async () => {
-		let res = await axios.get("http://localhost:9000/api/v1/todo", {
-			headers: {
-				"content-type": "application/json",
-				"access-token": user.token,
+		let res = await axios.get(
+			"https://event-list-api.herokuapp.com/api/v1/todo",
+			{
+				headers: {
+					"content-type": "application/json",
+					"access-token": user.token,
+				},
 			},
-		});
+		);
 		setAllEvent(res.data.allTodos);
 	};
 
@@ -61,7 +68,7 @@ const EventPage = () => {
 	const deleteItem = async (id) => {
 		try {
 			let res = await axios.delete(
-				`http://localhost:9000/api/v1/todo/delete/${id}`,
+				`https://event-list-api.herokuapp.com/api/v1/todo/delete/${id}`,
 				{
 					headers: {
 						"content-type": "application/json",
@@ -89,7 +96,7 @@ const EventPage = () => {
 	const updateItem = async (id) => {
 		try {
 			let res = await axios.put(
-				`http://localhost:9000/api/v1/todo/put/${id}`,
+				`https://event-list-api.herokuapp.com/api/v1/todo/put/${id}`,
 				updatedItem,
 				{
 					headers: {
