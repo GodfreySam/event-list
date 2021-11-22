@@ -190,7 +190,7 @@ const Navbar = () => {
 						<div className="image__view uploader-container">
 							<img
 								src={userAvatar ? userAvatar.largeAvi : ''}
-								alt="user image"
+								alt=""
 								className="user__avatar image-item"
 							/>
 							<form className="image-item overlay">

@@ -143,6 +143,7 @@ hr {
  position: relative;
  background-image: url('../../generic-avatar.jpg');
  background-position: center;
+ background-size: cover;
  background-repeat: no-repeat;
 }
 
