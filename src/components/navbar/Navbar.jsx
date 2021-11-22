@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { FaBook, FaSignOutAlt, FaTrashAlt } from "react-icons/fa";
 import "./navbar.css";
 import { AuthContext } from "../../context/AuthContext";
@@ -46,14 +46,17 @@ const Navbar = () => {
 	const { user } = useContext(AuthContext);
 	const [sidebar, setSidebar] = useState(false);
 	const [image, setImage] = useState(null);
-	const [userAvatar, setUserAvatar] = useState(null);
+	const [userAvatar, setUserAvatar] = useState("");
 	const [finalImage, setFinalImage] = useState(null);
 
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [zoom, setZoom] = useState(1);
 	const onCropComplete = async (croppedArea, croppedAreaPixels) => {
 		// console.log(croppedArea, croppedAreaPixels);
-		const croppedImage =	await getCroppedImg(URL.createObjectURL(image), croppedAreaPixels);
+		const croppedImage = await getCroppedImg(
+			URL.createObjectURL(image),
+			croppedAreaPixels,
+		);
 		setFinalImage(croppedImage);
 		// console.log(croppedImage);
 	};
@@ -80,7 +83,7 @@ const Navbar = () => {
 
 	const uploadImage = async (e) => {
 		e.preventDefault();
-			setOpen(true);
+		setOpen(true);
 
 		try {
 			const data = new FormData();
@@ -111,7 +114,7 @@ const Navbar = () => {
 		}
 	};
 
-	const getUserAvatar = async () => {
+	const getUserAvatar = useCallback(async () => {
 		let res = await axios.get(
 			"https://event-list-api.herokuapp.com/api/v1/user",
 			{
@@ -122,11 +125,11 @@ const Navbar = () => {
 			},
 		);
 		setUserAvatar(res.data.userAvatar);
-	};
+	}, [user.token]);
 
 	useEffect(() => {
 		getUserAvatar();
-	}, []);
+	}, [getUserAvatar]);
 
 	return (
 		<>
