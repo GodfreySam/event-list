@@ -50,7 +50,7 @@ const Navbar = () => {
 
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [zoom, setZoom] = useState(1);
-	const onCropComplete = useCallback(async (croppedArea, croppedAreaPixels) => {
+	const onCropComplete = async (croppedArea, croppedAreaPixels) => {
 		// console.log(croppedArea, croppedAreaPixels);
 		const croppedImage = await getCroppedImg(
 			URL.createObjectURL(image),
@@ -58,7 +58,7 @@ const Navbar = () => {
 		);
 		setFinalImage(croppedImage);
 		// console.log(croppedImage);
-	}, [image]);
+	};
 
 	const showSidebar = () => setSidebar(!sidebar);
 
