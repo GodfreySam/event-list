@@ -110,7 +110,7 @@ const Navbar = () => {
 			}
 		} catch (err) {
 			console.log(err);
-			// if (!err.response.data.success) return toast.error(err.response.data.msg);
+			if (!err.response.data.success) return toast.error(err.response.data.msg);
 		}
 	};
 
