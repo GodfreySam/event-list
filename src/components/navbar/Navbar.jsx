@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaBook, FaSignOutAlt, FaTrashAlt } from "react-icons/fa";
 import "./navbar.css";
 import { AuthContext } from "../../context/AuthContext";
@@ -113,7 +113,7 @@ const Navbar = () => {
 		}
 	};
 
-	const getUserAvatar = useCallback(async () => {
+	const getUserAvatar = async () => {
 		let res = await axios.get(
 			"https://event-list-api.herokuapp.com/api/v1/user",
 			{
@@ -124,11 +124,11 @@ const Navbar = () => {
 			},
 		);
 		setUserAvatar(res.data.userAvatar);
-	}, [user.token]);
+	};
 
-	useEffect(() => {
-		getUserAvatar();
-	}, [getUserAvatar]);
+	// useEffect(() => {
+	// 	getUserAvatar();
+	// }, [userAvatar]);
 
 	return (
 		<>
