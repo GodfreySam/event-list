@@ -109,7 +109,8 @@ const Navbar = () => {
 				return setImage(null);
 			}
 		} catch (err) {
-			if (!err.response.data.success) return toast.error(err.response.data.msg);
+			console.log(err);
+			// if (!err.response.data.success) return toast.error(err.response.data.msg);
 		}
 	};
 
